@@ -12,7 +12,7 @@ or add the following to your `composer.json`:
 ```json
 {
   "require": {
-    "php-i18n/php-i18n": "v1.0"
+    "php-i18n/php-i18n": "^1.0"
   }
 }
 ```
