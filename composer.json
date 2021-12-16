@@ -1,0 +1,17 @@
+{
+  "name": "mrmuminov/php-i18n",
+  "description": "A PHP library for internationalization",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Mrmuminov\\PhpI18n\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Bahriddin Mo'minov",
+      "email": "darkshadeuz@gmail.com"
+    }
+  ],
+  "require": {}
+}
