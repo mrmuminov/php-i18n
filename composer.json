@@ -4,7 +4,7 @@
   "type": "library",
   "autoload": {
     "psr-4": {
-      "Mrmuminov\\PhpI18n\\": "src/"
+      "MrMuminov\\PhpI18n\\": "src/"
     }
   },
   "authors": [

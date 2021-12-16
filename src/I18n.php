@@ -2,48 +2,91 @@
 
 namespace MrMuminov\PhpI18n;
 
+use Exception;
+
 /**
  * I18n class
  * @author Bahriddin Muminov
  * @version 1.0
  * @created 04-May-2016 12:00:00 PM
- *
- * @property string $lang Current language
- * @property string $path Language messages path
  */
 class I18n
 {
     /**
-     * @var string|null
+     * @var array
      */
-    private $lang;
+    private $languages;
     /**
      * @var string|null
      */
-    private $path = __DIR__ . '../messages';
+    private $language;
+    /**
+     * @var string|null
+     */
+    private $path = __DIR__ . '/../messages';
     /**
      * @var array
      */
     private $_locale = [];
 
     /**
-     * @param $lang string
+     * @param $config array
+     * @throws Exception
      */
-    public function __construct($lang)
+    public function __construct(array $config)
     {
-        $this->lang = $lang;
+        if (isset($config['languages'])) {
+            $this->setLanguages($config['languages']);
+        }
+        if (isset($config['language'])) {
+            if ($this->isInLanguages($config['language'])) {
+                $this->setLanguage($config['language']);
+            } else {
+                $this->setLanguage($this->getFirstLanguage());
+            }
+        }
+        if (isset($config['path'])) {
+            $this->path = $config['path'];
+        }
         $this->include();
     }
 
     /**
-     * @param $text string
-     * @param ...$args array
-     * @return string
+     * @param array $languages
      */
-    public function get($text, ...$args)
+    private function setLanguages(array $languages)
     {
-        $text = $this->getLocale($this->getLang(), $text);
-        return vsprintf($text, $args);
+        $this->languages = $languages;
+    }
+
+    /**
+     * @param $language
+     * @return bool
+     */
+    private function isInLanguages($language): bool
+    {
+        return in_array($language, $this->getLanguages());
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
+    }
+
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    private function getFirstLanguage()
+    {
+        $languages = $this->getLanguages();
+        if (isset($languages[0])) {
+            return $languages[0];
+        }
+        throw new Exception('No languages found');
     }
 
     /**
@@ -51,49 +94,78 @@ class I18n
      */
     private function include()
     {
-        $lang = $this->getLang();
+        $lang = $this->getLanguage();
         $file = $this->path . "/$lang.php";
         if (file_exists($file)) {
-            $this->setLocale(include_once $file);
+            $included = include $file;
+            $this->setLocale($included);
         }
     }
 
     /**
      * @return string|null
      */
-    public function getLang()
+    public function getLanguage()
     {
-        return $this->lang;
+        return $this->language;
     }
 
     /**
-     * @param $lang string
+     * @param $language string
      * @return void
      */
-    public function setLang($lang)
+    public function setLanguage(string $language)
     {
-        $this->lang = $lang;
-    }
-
-    /**
-     * @param $lang string
-     * @param $text string
-     * @return mixed|null
-     */
-    public function getLocale($lang, $text)
-    {
-        return $this->_locale[$lang][$text] ?? null;
+        $this->language = $language;
+        $this->include();
     }
 
     /**
      * @param $source array
      * @return void
      */
-    public function setLocale($source)
+    private function setLocale(array $source)
     {
-        $lang = $this->getLang();
+        $lang = $this->getLanguage();
         if (!isset($this->_locale[$lang])) {
             $this->_locale[$lang] = $source;
         }
+    }
+
+    /**
+     * @param $text string
+     * @param $args
+     * @return string
+     */
+    public function get(string $text, ...$args): string
+    {
+        $text = $this->getLocale($text);
+        return vsprintf($text, $args);
+    }
+
+    /**
+     * @param string $text
+     * @return mixed|null
+     */
+    private function getLocale(string $text)
+    {
+        $lang = $this->getLanguage();
+        return $this->_locale[$lang][$text] ?? null;
+    }
+
+    /**
+     * @return string|null
+     */
+    private function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string|null $path
+     */
+    private function setPath(string $path)
+    {
+        $this->path = $path;
     }
 }
