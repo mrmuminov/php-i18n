@@ -4,6 +4,6 @@
  * Uzbek translation.
  */
 return [
-    'Home' => 'Home',
+    'Home' => 'Uy',
     'Hello %s' => 'Salom %s',
 ];
