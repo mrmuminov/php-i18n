@@ -39,14 +39,10 @@ class I18n
             $this->setLanguages($config['languages']);
         }
         if (isset($config['language'])) {
-            if ($this->isInLanguages($config['language'])) {
-                $this->setLanguage($config['language']);
-            } else {
-                $this->setLanguage($this->getFirstLanguage());
-            }
+            $this->setLanguage($config['language']);
         }
         if (isset($config['path'])) {
-            $this->path = $config['path'];
+            $this->setPath($config['path']);
         }
         $this->include();
     }
@@ -95,7 +91,7 @@ class I18n
     private function include()
     {
         $lang = $this->getLanguage();
-        $file = $this->path . "/$lang.php";
+        $file = $this->getPath() . "/$lang.php";
         if (file_exists($file)) {
             $included = include $file;
             $this->setLocale($included);
@@ -113,10 +109,11 @@ class I18n
     /**
      * @param $language string
      * @return void
+     * @throws Exception
      */
     public function setLanguage(string $language)
     {
-        $this->language = $language;
+        $this->language = $this->isInLanguages($language) ? $language : $this->getFirstLanguage();
         $this->include();
     }
 
