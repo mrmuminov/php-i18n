@@ -1,4 +1,6 @@
 # PHP-I18N
+![](https://api.codiga.io/project/30445/score/svg)
+![](https://api.codiga.io/project/30445/status/svg)
 #### A PHP library for internationalization
 
 ---
