@@ -6,13 +6,13 @@
 ---
 ### Installation
 ```shell
-composer require php-i18n
+composer require mrmuminov/php-i18n
 ```
 or add the following to your `composer.json`:
 ```json
 {
   "require": {
-    "php-i18n/php-i18n": "^1.0"
+    "mrmuminov/php-i18n": "^v1.0"
   }
 }
 ```
