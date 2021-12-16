@@ -35,16 +35,15 @@ class I18n
      */
     public function __construct(array $config)
     {
+        if (isset($config['path'])) {
+            $this->setPath($config['path']);
+        }
         if (isset($config['languages'])) {
             $this->setLanguages($config['languages']);
         }
         if (isset($config['language'])) {
             $this->setLanguage($config['language']);
         }
-        if (isset($config['path'])) {
-            $this->setPath($config['path']);
-        }
-        $this->include();
     }
 
     /**
