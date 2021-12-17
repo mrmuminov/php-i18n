@@ -54,10 +54,10 @@ class I18n
     }
 
     /**
-     * @param $language
+     * @param $language string
      * @return bool
      */
-    private function isInLanguages($language): bool
+    private function isInLanguages(string $language): bool
     {
         return in_array($language, $this->getLanguages());
     }
@@ -71,15 +71,15 @@ class I18n
     }
 
     /**
-     * @return array
+     * @return string
      */
-    private function getFirstLanguage(): array
+    private function getFirstLanguage(): string
     {
         $languages = $this->getLanguages();
         if (isset($languages[0])) {
             return $languages[0];
         }
-        return [];
+        return '';
     }
 
     /**
