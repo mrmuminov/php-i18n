@@ -2,8 +2,6 @@
 
 namespace MrMuminov\PhpI18n;
 
-use Exception;
-
 /**
  * I18n class
  * @author Bahriddin Muminov
@@ -17,11 +15,11 @@ class I18n
      */
     private $languages;
     /**
-     * @var string|null
+     * @var string
      */
     private $language;
     /**
-     * @var string|null
+     * @var string
      */
     private $path = __DIR__ . '/../messages';
     /**
@@ -31,7 +29,7 @@ class I18n
 
     /**
      * @param $config array
-     * @throws Exception
+     * @return void
      */
     public function __construct(array $config)
     {
@@ -48,6 +46,7 @@ class I18n
 
     /**
      * @param array $languages
+     * @return void
      */
     private function setLanguages(array $languages)
     {
@@ -72,16 +71,15 @@ class I18n
     }
 
     /**
-     * @return mixed
-     * @throws Exception
+     * @return array
      */
-    private function getFirstLanguage()
+    private function getFirstLanguage(): array
     {
         $languages = $this->getLanguages();
         if (isset($languages[0])) {
             return $languages[0];
         }
-        throw new Exception('No languages found');
+        return [];
     }
 
     /**
@@ -98,9 +96,9 @@ class I18n
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->language;
     }
@@ -108,7 +106,6 @@ class I18n
     /**
      * @param $language string
      * @return void
-     * @throws Exception
      */
     public function setLanguage(string $language)
     {
@@ -141,24 +138,25 @@ class I18n
 
     /**
      * @param string $text
-     * @return mixed|null
+     * @return string
      */
-    private function getLocale(string $text)
+    private function getLocale(string $text): string
     {
         $lang = $this->getLanguage();
-        return $this->_locale[$lang][$text] ?? null;
+        return $this->_locale[$lang][$text] ?? '';
     }
 
     /**
-     * @return string|null
+     * @return string
      */
-    private function getPath()
+    private function getPath(): string
     {
-        return $this->path;
+        return $this->path ?? '';
     }
 
     /**
-     * @param string|null $path
+     * @param string $path
+     * @return void
      */
     private function setPath(string $path)
     {
