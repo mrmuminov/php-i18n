@@ -10,5 +10,11 @@ $i18n = new \MrMuminov\PhpI18n\I18n([
 echo $i18n->get('Home');
 // Output: "Home"
 
-echo $i18n->get('Hello %s', 'John');
-// Output: "Hello John"
+echo $i18n->get('Hello %s', 'Bahriddin');
+// Output: "Hello Bahriddin"
+
+// Set language to uz
+$i18n->setLanguage('uz');
+
+echo $i18n->get('Hello %s', 'Bahriddin');
+// Output: "Salom Bahriddin"

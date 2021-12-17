@@ -1,6 +1,9 @@
 # PHP-I18N
 ![](https://api.codiga.io/project/30445/score/svg)
 ![](https://api.codiga.io/project/30445/status/svg)
+![](https://scrutinizer-ci.com/g/MrMuminov/php-i18n/badges/quality-score.png?b=master)
+![](https://scrutinizer-ci.com/g/MrMuminov/php-i18n/badges/build.png?b=master)
+![](https://scrutinizer-ci.com/g/MrMuminov/php-i18n/badges/code-intelligence.svg?b=master)
 #### A PHP library for internationalization
 
 ---
@@ -23,7 +26,7 @@ or add the following to your `composer.json`:
 ```php
 <?php
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 $i18n = new \MrMuminov\PhpI18n\I18n([
     'languages' => ['en', 'uz'],
@@ -33,8 +36,14 @@ $i18n = new \MrMuminov\PhpI18n\I18n([
 echo $i18n->get('Home');
 // Output: "Home"
 
-echo $i18n->get('Hello %s', 'John');
-// Output: "Hello John"
+echo $i18n->get('Hello %s', 'Bahriddin');
+// Output: "Hello Bahriddin"
+
+// Set language to uz
+$i18n->setLanguage('uz');
+
+echo $i18n->get('Hello %s', 'Bahriddin');
+// Output: "Salom Bahriddin"
 ```
 
 
