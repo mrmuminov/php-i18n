@@ -2,6 +2,7 @@
   "name": "mrmuminov/php-i18n",
   "description": "A PHP library for internationalization",
   "type": "library",
+  "license": "MIT",
   "autoload": {
     "psr-4": {
       "MrMuminov\\PhpI18n\\": "src/"
@@ -10,7 +11,8 @@
   "authors": [
     {
       "name": "Bahriddin Mo'minov",
-      "email": "darkshadeuz@gmail.com"
+      "email": "darkshadeuz@gmail.com",
+      "homepage": "https://bahriddin.uz/"
     }
   ],
   "require": {
