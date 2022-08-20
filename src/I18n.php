@@ -27,10 +27,6 @@ class I18n
      */
     private $_locale = [];
 
-    /**
-     * @param $config array
-     * @return void
-     */
     public function __construct(array $config)
     {
         if (isset($config['path'])) {
@@ -44,13 +40,45 @@ class I18n
         }
     }
 
-    /**
-     * @param array $languages
-     * @return void
-     */
+    private function setPath(string $path)
+    {
+        $this->path = $path;
+    }
+
     private function setLanguages(array $languages)
     {
         $this->languages = $languages;
+    }
+
+    public function get(string $text, ...$args): string
+    {
+        $text = $this->getLocale($text);
+        return vsprintf($text, $args);
+    }
+
+    private function getLocale(string $text): string
+    {
+        $lang = $this->getLanguage();
+        return $this->_locale[$lang][$text] ?? '';
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(string $language)
+    {
+        $this->language = $this->isInLanguages($language) ? $language : $this->getFirstLanguage();
+        $this->include();
+    }
+
+    /**
+     * @return array
+     */
+    public function getLanguages(): array
+    {
+        return $this->languages;
     }
 
     /**
@@ -60,14 +88,6 @@ class I18n
     private function isInLanguages(string $language): bool
     {
         return in_array($language, $this->getLanguages());
-    }
-
-    /**
-     * @return array
-     */
-    public function getLanguages(): array
-    {
-        return $this->languages;
     }
 
     /**
@@ -95,71 +115,16 @@ class I18n
         }
     }
 
-    /**
-     * @return string
-     */
-    public function getLanguage(): string
+    private function getPath(): string
     {
-        return $this->language;
+        return $this->path ?? '';
     }
 
-    /**
-     * @param $language string
-     * @return void
-     */
-    public function setLanguage(string $language)
-    {
-        $this->language = $this->isInLanguages($language) ? $language : $this->getFirstLanguage();
-        $this->include();
-    }
-
-    /**
-     * @param $source array
-     * @return void
-     */
     private function setLocale(array $source)
     {
         $lang = $this->getLanguage();
         if (!isset($this->_locale[$lang])) {
             $this->_locale[$lang] = $source;
         }
-    }
-
-    /**
-     * @param $text string
-     * @param $args
-     * @return string
-     */
-    public function get(string $text, ...$args): string
-    {
-        $text = $this->getLocale($text);
-        return vsprintf($text, $args);
-    }
-
-    /**
-     * @param string $text
-     * @return string
-     */
-    private function getLocale(string $text): string
-    {
-        $lang = $this->getLanguage();
-        return $this->_locale[$lang][$text] ?? '';
-    }
-
-    /**
-     * @return string
-     */
-    private function getPath(): string
-    {
-        return $this->path ?? '';
-    }
-
-    /**
-     * @param string $path
-     * @return void
-     */
-    private function setPath(string $path)
-    {
-        $this->path = $path;
     }
 }
