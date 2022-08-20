@@ -3,11 +3,6 @@
   "description": "A PHP library for internationalization",
   "type": "library",
   "license": "MIT",
-  "autoload": {
-    "psr-4": {
-      "MrMuminov\\PhpI18n\\": "src/"
-    }
-  },
   "authors": [
     {
       "name": "Bahriddin Mo'minov",
@@ -15,10 +10,18 @@
       "homepage": "https://bahriddin.uz/"
     }
   ],
+  "autoload": {
+    "psr-4": {
+      "MrMuminov\\PhpI18n\\": "src/"
+    }
+  },
   "require": {
     "php": ">=7.0.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^4"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit tests/"
   }
 }
