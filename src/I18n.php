@@ -40,12 +40,12 @@ class I18n
         }
     }
 
-    private function setPath(string $path)
+    private function setPath(string $path): void
     {
         $this->path = $path;
     }
 
-    private function setLanguages(array $languages)
+    private function setLanguages(array $languages): void
     {
         $this->languages = $languages;
     }
@@ -67,7 +67,7 @@ class I18n
         return $this->language;
     }
 
-    public function setLanguage(string $language)
+    public function setLanguage(string $language): void
     {
         $this->language = $this->isInLanguages($language) ? $language : $this->getFirstLanguage();
         $this->include();
@@ -105,7 +105,7 @@ class I18n
     /**
      * @return void
      */
-    private function include()
+    private function include(): void
     {
         $lang = $this->getLanguage();
         $file = $this->getPath() . "/$lang.php";
@@ -120,7 +120,7 @@ class I18n
         return $this->path ?? '';
     }
 
-    private function setLocale(array $source)
+    private function setLocale(array $source): void
     {
         $lang = $this->getLanguage();
         if (!isset($this->_locale[$lang])) {

@@ -1,8 +1,10 @@
 <?php
 
+use MrMuminov\PhpI18n\I18n;
+
 require '../vendor/autoload.php';
 
-$i18n = new \MrMuminov\PhpI18n\I18n([
+$i18n = new I18n([
     'languages' => ['en', 'uz'],
     'language' => 'en',
 ]);
